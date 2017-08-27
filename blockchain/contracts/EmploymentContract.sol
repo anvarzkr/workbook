@@ -85,4 +85,14 @@ contract EmploymentContract {
         
     }
 
+    function deleteCompany(address companyAddr){
+        require(bytes(companyList[msg.sender]).length != 0 && 
+            (msg.sender == creator || msg.sender == companyAddr));
+        Company company = companyList[companyAddr];
+        for(uint i = 0; i < company.empCounter; i++){
+            fire(company.employees[i].employee);
+        }
+        delete companyList[companyAddr];
+    }
+
 }
