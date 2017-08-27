@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 
 contract EmploymentContract {
-    address public creator;
+    address public creator; // просто бог
 
     //эта штука короче хранится в компании и в работнике - запись о работе работника в компании
     struct Employment {
@@ -45,15 +45,21 @@ contract EmploymentContract {
         company.empCounter++;
     }
 
+    function addEmployee(address employeeAddr, bytes32 firstName, bytes32 lastName, bytes32 passport){
+        require(bytes(companyList[msg.sender]).length != 0); // проверка на нул
+        employeeList[employeeAddr] = Employee(employeeAddr, firstName, lastName, passport, 0, 0); // 0 []
+    }
+
     // добавить компанию в реестр
     function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
         require(msg.sender == creator); // добавить новую компанию может только создатель
-        companyList[companyAddr] = Company(name, regNumber, 0, 0);//[] // создали компанию
+        companyList[companyAddr] = Company(companyAddr, name, regNumber, 0, 0);//[] // создали компанию
 
     }
 
     //уволить
     function fire(address employeeAddr, string feedback) { // адрес работника, кого надо уволить, отзыв о работнике
+        require(bytes(companyList[msg.sender]).length != 0);
         Employee employee = employeeList[employeeAddr]; // работник, которого хотим уволить
         Company company = companyList[msg.sender]; // компания наниматель
         if (company.employees.length > 0){ 
