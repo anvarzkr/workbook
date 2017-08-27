@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import TextDisplay from './TextDisplay';
+import TextDisplay from './TextDisplay.jsx';
 import axios from 'axios';
 import '../sources/css/reset.css';
 import '../sources/css/style.css';
-import scroll_event_initializer from '../dist/assets/js/main.js';
-import car from'../sources/images/car.png';
 
 class TextInput extends Component {
 
   componentDidMount() {
-    scroll_event_initializer();
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    });
   }
 
   render () {
       return (<div>
         <header>
-  		<h1>Моя Трудовая книжка</h1>
+  		<h1>Work book</h1>
   	</header>
 
   	<div className="container">
@@ -36,13 +36,13 @@ class TextInput extends Component {
                           <div className="col-lg-12">
                               <div className="row">
                                   <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                      <div itemScope="" itemType="http://schema.org/Person">
-                                          <h2 className="for_name"> <span itemProp="name">Name</span></h2>
-                                          <p className="for_name"><span itemProp="affiliation">Current Company</span></p>
-                                          <p className="for_name">
-                                            <span itemProp="addressRegion">City</span>
+                                      <div itemscope="" itemtype="http://schema.org/Person">
+                                          <h2> <span itemprop="name">Name</span></h2>
+                                          <p><span itemprop="affiliation">Current Company</span></p>
+                                          <p>
+                                              <i className="fa fa-map-marker"></i> <span itemprop="addressRegion">City</span>
                                           </p>
-                                          <p className="for_name" itemProp="email">Mail </p>
+                                          <p itemprop="email">Mail </p>
                                       </div>
                                   </div>
                               </div>
@@ -74,7 +74,7 @@ class TextInput extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-movie">
-  				<img src={car} alt="Movie"/>
+  				<img src="img/cd-icon-movie.svg" alt="Movie"/>
   			</div>
 
   			<div className="cd-timeline-content">
@@ -87,7 +87,7 @@ class TextInput extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-picture">
-  				<img src="img/cd-icon-picture.svg" alt="Picture"/>
+  				<img src="../sources/imges/car.svg" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
