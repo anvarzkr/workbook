@@ -9,6 +9,7 @@ contract EmploymentContract {
         address employer;
         uint startDate;
         uint endDate;
+        // string feedback;
     }
 
     struct Employee {
@@ -32,15 +33,23 @@ contract EmploymentContract {
     function hire(address employeeAddr) {
         Employee employee = employeeList[employeeAddr];
         Company company = companyList[msg.sender];
-        Employment emp = Employment(employeeAddr, msg.sender, now, 0);
+        Employment emp = Employment(employeeAddr, msg.sender, now, 0, 0); //0 - feedback
         company.employees[company.empCounter] = emp;
         employee.history[employee.jobCounter] = emp;
     }
 
     function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
         require(msg.sender == creator);
-        companyList[companyAddr] = Company(name, regNumber, 0, []);
+        companyList[companyAddr] = Company(name, regNumber, 0, []);//[]
 
+    }
+
+    function fire(address employeeAddr, string feedback) {
+        Employee employee = employeeList[employeeAddr];
+        Company company = companyList[msg.sender];
+        Employment emp = employee.history[employee.jobCounter];
+        emp.feedback = feedback;
+        
     }
 
 }
