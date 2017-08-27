@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import TextDisplay from './TextDisplay';
-import axios from 'axios';
-import '../sources/css/reset.css';
-import '../sources/css/style.css';
+import '../dist/assets/css/reset.css';
+import '../dist/assets/css/style.css';
 import scroll_event_initializer from '../dist/assets/js/main.js';
 
-class TextInput extends Component {
+class FirstPage extends Component {
 
   componentDidMount() {
     scroll_event_initializer();
@@ -153,4 +151,4 @@ class TextInput extends Component {
 
   }
 }
-export default TextInput
+export default FirstPage

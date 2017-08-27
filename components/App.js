@@ -1,11 +1,10 @@
 
 import React, { Component } from 'react'
-import axios from 'axios';
-import TextInput from './TextInput'
+import FirstPage from './FirstPage'
 class App extends Component{
   render(){
       return (<div>
-        <TextInput/>
+        <FirstPage/>
         </div>
       );
   }
