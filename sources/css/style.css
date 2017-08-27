@@ -173,10 +173,10 @@ header h1 {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
   }
-  .cssanimations .cd-timeline-img.is-hidden {
+  .cd-timeline-img.is-hidden {
     visibility: hidden;
   }
-  .cssanimations .cd-timeline-img.bounce-in {
+  .cd-timeline-img.bounce-in {
     visibility: visible;
     -webkit-animation: cd-bounce-1 0.6s;
     -moz-animation: cd-bounce-1 0.6s;
@@ -348,10 +348,10 @@ header h1 {
     right: 122%;
     text-align: right;
   }
-  .cssanimations .cd-timeline-content.is-hidden {
+  .cd-timeline-content.is-hidden {
     visibility: hidden;
   }
-  .cssanimations .cd-timeline-content.bounce-in {
+  .cd-timeline-content.bounce-in {
     visibility: visible;
     -webkit-animation: cd-bounce-2 0.6s;
     -moz-animation: cd-bounce-2 0.6s;
@@ -393,7 +393,7 @@ header h1 {
 
 @media only screen and (min-width: 1170px) {
   /* inverse bounce effect on even content blocks */
-  .cssanimations .cd-timeline-block:nth-child(even) .cd-timeline-content.bounce-in {
+  .cd-timeline-block:nth-child(even) .cd-timeline-content.bounce-in {
     -webkit-animation: cd-bounce-2-inverse 0.6s;
     -moz-animation: cd-bounce-2-inverse 0.6s;
     animation: cd-bounce-2-inverse 0.6s;

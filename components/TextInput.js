@@ -3,14 +3,12 @@ import TextDisplay from './TextDisplay';
 import axios from 'axios';
 import '../sources/css/reset.css';
 import '../sources/css/style.css';
-// import '../sources/js/main.js'
-// import '../sources/js/modernizr.js'
+import scroll_event_initializer from '../dist/assets/js/main.js';
+
 class TextInput extends Component {
 
   componentDidMount() {
-    $(function () {
-      $('[data-toggle="popover"]').popover()
-    });
+    scroll_event_initializer();
   }
 
   render () {
@@ -37,13 +35,13 @@ class TextInput extends Component {
                           <div className="col-lg-12">
                               <div className="row">
                                   <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                      <div itemscope="" itemtype="http://schema.org/Person">
-                                          <h2> <span itemprop="name">Name</span></h2>
-                                          <p><span itemprop="affiliation">Current Company</span></p>
+                                      <div itemScope="" itemType="http://schema.org/Person">
+                                          <h2> <span itemProp="name">Name</span></h2>
+                                          <p><span itemProp="affiliation">Current Company</span></p>
                                           <p>
-                                              <i className="fa fa-map-marker"></i> <span itemprop="addressRegion">City</span>
+                                              <i className="fa fa-map-marker"></i> <span itemProp="addressRegion">City</span>
                                           </p>
-                                          <p itemprop="email">Mail </p>
+                                          <p itemProp="email">Mail </p>
                                       </div>
                                   </div>
                               </div>
