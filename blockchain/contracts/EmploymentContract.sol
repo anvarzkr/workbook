@@ -19,6 +19,7 @@ contract EmploymentContract {
         uint jobCounter;
         Employment[] history;        
     }
+    //test
 
     struct Company {
         bytes32 name;
