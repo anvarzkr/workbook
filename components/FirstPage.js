@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import '../dist/assets/css/reset.css';
 import '../dist/assets/css/style.css';
 import scroll_event_initializer from '../dist/assets/js/main.js';
+import { Link } from 'react-router';
+import img from '../dist/assets/images/carr.png';
 
 class FirstPage extends Component {
+  constructor (props){
+    super(props);
 
+<<<<<<< HEAD
 	constructor(props) {
 		super(props)
 		this.props.emp.getEmployee.call("0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452", {from: "0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452"})
@@ -16,60 +21,113 @@ class FirstPage extends Component {
 	}
 
   	render () {
+=======
+
+  }
+  componentDidMount() {
+    this.setState({
+      currentWorker: data.allworkers[0]
+    });
+
+
+  }
+
+  showWorker(date, e){
+    this.setState({
+      currentWorker: date
+    });
+    if (data.lastWork != null && this.state.currentWorker === data.lastWork.worker)
+    this.setState({
+      lastWork: data.lastWork
+    });
+    scroll_event_initializer();
+  }
+
+  render () {
+    if (data.lastWork != null && this.state.currentWorker.name == data.lastWork.worker.name)
+      this.state.lastWork= data.lastWork;
+    else {
+      this.state.lastWork = null
+    }
+    // });
+      if (this.state.lastWork != null)
+      var lastWork = <div className="cd-timeline-block">
+  			<div className="cd-timeline-img cd-movie">
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
+  			</div>
+
+  			<div className="cd-timeline-content">
+  				<h2>{this.state.lastWork.company}</h2>
+  				<p>{this.state.lastWork.review}</p>
+  				<span className="cd-date">{this.state.lastWork.date}</span>
+  			</div>
+  		</div>;
+      else
+        var lastWork = "";
+      const workers = data.allworkers.map((person, index) =>{
+        let showWorker = this.showWorker.bind(this, person);
+
+        return <button className="list-group-item" onClick={showWorker} key={index}>{person.name}</button>
+      });
+>>>>>>> very_bad_kostyl
       return (<div>
         <header>
-  		<h1>Work book</h1>
-  	</header>
+  		    <h1>Личный кабинет работника <Link to='/company' params={{ data: this.state }}>Компания</Link></h1> <br/>
+  	    </header>
 
-  	<div className="container">
-      <div className="row">
-          <div className=" col-lg-offset-3 col-lg-6">
-              <div className="panel panel-default">
-                  <div className="panel-body">
-                      <div className="row">
-                          <div className="col-lg-12">
-                              <div className="row">
-                                  <div className="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                      <img className="img-circle img-responsive" src="http://api.adorable.io/avatars/300/abott@adorable.png"/>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="row">
-                          <div className="col-lg-12">
-                              <div className="row">
-                                  <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                      <div itemScope="" itemType="http://schema.org/Person">
-                                          <h2> <span itemProp="name">Name</span></h2>
-                                          <p><span itemProp="affiliation">Current Company</span></p>
-                                          <p>
-                                              <i className="fa fa-map-marker"></i> <span itemProp="addressRegion">City</span>
-                                          </p>
-                                          <p itemProp="email">Mail </p>
+      	<div className="container-field">
+          <div className="row">
+              <div className="col-lg-3">
+                <div className="list-group">
+                  {workers}
+                </div>
+              </div>
+              <div className="col-lg-6">
+                  <div className="panel panel-default">
+                      <div className="panel-body">
+                          <div className="row">
+                              <div className="col-lg-12">
+                                  <div className="row">
+                                      <div className="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                                          <img className="img-circle img-responsive" src="https://s-media-cache-ak0.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png"/>
                                       </div>
                                   </div>
                               </div>
                           </div>
-                          <div className="col-lg-12 centered-text">
-                              Your Short Bio goes here.
+                          <div className="row">
+                              <div className="col-lg-12">
+                                  <div className="row">
+                                      <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+                                          <div itemScope="" itemType="http://schema.org/Person">
+                                              <h2 className="for_name"> <span itemProp="name">{this.state.currentWorker.name}</span></h2>
+                                              <br/>
+                                              <p className="for_name"><span itemProp="affiliation">{this.state.currentWorker.company}</span></p>
+
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-      </div>
-  </div>
+        </div>
 
 
   	<section id="cd-timeline" className="cd-container">
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-picture">
-  				<img src="img/cd-icon-picture.svg" alt="Picture"/>
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 1</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+  				<h2>Ак барс</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно относился к выполняемой работе. Вдумчиво и со знанием дела подходил к выполнению задания. В своей работе успешно применял полученные в Финансовой Академии при Правительстве РФ знания. Проявил себя дисциплинированным, ответственным работником и за весь срок не получил ни одного замечания. Полученную информацию систематизирует, владеет инструментами анализа. Проявляет инициативу, коммуникабелен, берется за любые задания, четко и в определенные сроки выполняет их. По результатам выполнения отчитывается</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 14</span>
   			</div>
@@ -77,12 +135,15 @@ class FirstPage extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-movie">
-  				<img src="img/cd-icon-movie.svg" alt="Movie"/>
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 2</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+  				<h2>Яндкс</h2>
+  				<p>акультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно относился к выполняемой работе. Вдумчиво и со знанием дела подходил к выполнению задания. В своей работе успешно применял полученные в Финансовой Академии при Правительстве РФ знания. Проявил себя дисциплинированным, ответственным работником и за весь срок не получил ни одного замечания. Полученную информацию систематизирует, владеет инструментами анализа. Проявляет инициативу, коммуникабелен, берется за любые задания, четко и в определенные сроки выполняет их. По результатам выполнения отчитывается</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 18</span>
   			</div>
@@ -90,12 +151,18 @@ class FirstPage extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-picture">
-  				<img src="img/cd-icon-picture.svg" alt="Picture"/>
+  			<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 3</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+  				<h2>Сбертех</h2>
+  				<p>Факультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно относился к выполняемой работе. Вдумчиво и со знанием дела подходил к выполнению задания. В своей работе успешно применял полученные в Финансовой Академии при Правительстве РФ знания. Проявил себя дисциплинированным, ответственным работником и за весь срок не получил ни одного замечания. Полученную информацию систематизирует, владеет инструментами анализа. Проявляет инициативу, коммуникабелен, берется за любые задания, четко и в определенные сроки выполняет их. По результатам выполнения отчитывается перед руководителем. Рабочее место организовано правильно.
+С сотрудниками Банка поддерживал дружеские отношения, не конфликтен. Легко входит в контакт с людьми, в любой ситуации был уважителен в общении с другими.
+Выполняемая работа ему нравится, любит видеть ее результаты. Аккуратен при работе с документами и деньгами. Обладает необходимыми знаниями для выполнения своих должностных обязанностей.
+Считаю, что по результатам работы Иванов С.П. можно оценить производственную преддипломную практику на оценку «отлично».</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 24</span>
   			</div>
@@ -103,12 +170,15 @@ class FirstPage extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-picture">
-  				<img src="img/cd-icon-picture.svg" alt="Picture"/>
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 3</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+  				<h2>Мэйл ру</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 27</span>
   			</div>
@@ -116,12 +186,14 @@ class FirstPage extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-location">
-  				<img src="img/cd-icon-location.svg" alt="Location"/>
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 4</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+  				<h2>Гугл</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего </p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Feb 14</span>
   			</div>
@@ -129,30 +201,26 @@ class FirstPage extends Component {
 
   		<div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-location">
-  				<img src="img/cd-icon-location.svg" alt="Location"/>
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 5</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
+  				<h2>Иннополис</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего </p>
   				<a href="#0" className="cd-read-more">Read more</a>
-  				<span className="cd-date">Feb 18</span>
+  				<span className="cd-date">Mar 20</span>
   			</div>
   		</div>
+        {lastWork}
 
-  		<div className="cd-timeline-block">
-  			<div className="cd-timeline-img cd-movie">
-  				<img src="img/cd-icon-movie.svg" alt="Movie"/>
-  			</div>
-
-  			<div className="cd-timeline-content">
-  				<h2>Final Section</h2>
-  				<p>This is the content of the last section</p>
-  				<span className="cd-date">Feb 26</span>
-  			</div>
-  		</div>
   	</section>
+
+
       </div>
+
+
       );
 
   }
