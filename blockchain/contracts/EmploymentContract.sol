@@ -37,62 +37,89 @@ contract EmploymentContract {
 
     // нанять нового работника с адресом employeeAddr
     function hire(address employeeAddr) {
-        Employee employee = employeeList[employeeAddr]; // работник, которого хотим нанять
-        Company company = companyList[msg.sender]; // компания наниматель
-        Employment emp = Employment(employeeAddr, msg.sender, now, 0, 0); //0 - feedback. Создаем новую работу. работник, компания, с текущего момента начало работы, конца ещще нет, фидбека тоже нет
+        Employee storage employee = employeeList[employeeAddr]; // работник, которого хотим нанять
+        Company storage company = companyList[msg.sender]; // компания наниматель
+        Employment memory emp = Employment(
+            employeeAddr,
+            msg.sender,
+            now,
+            0,
+            ""
+        ); 
+            //0 - feedback. Создаем новую работу. работник, компания, с текущего момента начало работы, конца ещще нет, фидбека тоже нет
         company.employees[company.empCounter] = emp; // добавляем эту работу в список из работ работников компании
         employee.history[employee.jobCounter] = emp; // добавляем эту работу в историю работ этого работника
         company.empCounter++;
     }
 
-    function addEmployee(address employeeAddr, bytes32 firstName, bytes32 lastName, bytes32 passport){
-        require(bytes(companyList[msg.sender]).length != 0); // проверка на нул
-        employeeList[employeeAddr] = Employee(employeeAddr, firstName, lastName, passport, 0, 0); // 0 []
-    }
+    // function addEmployee(
+    //     address employeeAddr,
+    //     bytes32 firstName,
+    //     bytes32 lastName,
+    //     bytes32 passport) {
+    //     require(companyList[msg.sender].companyAddr != address(0x0)); // проверка на нул
+    //     employeeList[employeeAddr] = Employee(
+    //         employeeAddr,
+    //         firstName,
+    //         lastName,
+    //         passport,
+    //         0,
+    //         new Employment[](0)
+    //     ); // 0 []
+    // }
 
     // добавить компанию в реестр
-    function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
-        require(msg.sender == creator); // добавить новую компанию может только создатель
-        companyList[companyAddr] = Company(companyAddr, name, regNumber, 0, 0);//[] // создали компанию
+    // function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
+    //     require(msg.sender == creator); // добавить новую компанию может только создатель
+    //     companyList[companyAddr] = Company(
+    //         companyAddr,
+    //         name,
+    //         regNumber,
+    //         0,
+    //         new Employment[](0)
+    //     );//[] // создали компанию
 
-    }
+    // }
 
     //уволить
     function fire(address employeeAddr, string feedback) { // адрес работника, кого надо уволить, отзыв о работнике
-        require(bytes(companyList[msg.sender]).length != 0);
-        Employee employee = employeeList[employeeAddr]; // работник, которого хотим уволить
-        Company company = companyList[msg.sender]; // компания наниматель
-        if (company.employees.length > 0){ 
+        Employee storage employee = employeeList[employeeAddr]; // работник, которого хотим уволить
+        Company storage company = companyList[msg.sender]; // компания наниматель
+        if (company.employees.length > 0) { 
             address t = company.employees[0].employee;
         }
-        uint stack j = 0;
-        while(t != employeeAddr){
+        uint j = 0;
+        while (t != employeeAddr) {
             t = company.employees[j++].employee; // тут короче нашли сотрудника, которого расстреливаем
         }
 
         //removing
-        for (uint i = --j; i<company.empCounter-1; i++){
+        for (uint i = --j; i<company.empCounter-1; i++) {
             company.employees[i] = company.employees[i+1];
         }
-        delete company.employees[company.empCounter-1];
-        array.length--;
-        //end removing
+        delete company.employees[company.empCounter-1];//end removing
 
-        Employment emp = employee.history[employee.jobCounter]; // находим работу работника
+        Employment storage emp = employee.history[employee.jobCounter]; // находим работу работника
         emp.endDate = now;
         emp.feedback = feedback; // приписываем отзыв о работе работника к работе
         company.empCounter--;
         
     }
 
-    function deleteCompany(address companyAddr){
-        require(bytes(companyList[msg.sender]).length != 0 && 
-            (msg.sender == creator || msg.sender == companyAddr));
-        Company company = companyList[companyAddr];
-        for(uint i = 0; i < company.empCounter; i++){
-            fire(company.employees[i].employee);
+    function deleteCompany(address companyAddr) {
+        require(companyList[msg.sender].companyAddr != address(0x0) && (msg.sender == creator || msg.sender == companyAddr));
+        Company storage company = companyList[companyAddr];
+        for (uint i = 0; i < company.empCounter; i++) {
+            fire(
+                company.employees[i].employee,
+                "This company doesn't exist anymore"
+            );
         }
         delete companyList[companyAddr];
     }
+
+    // function getCompany(address companyAddr) {
+
+    // }
 
 }
