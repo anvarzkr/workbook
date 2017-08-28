@@ -8,7 +8,7 @@ class FirstPage extends Component {
 	constructor(props) {
 		super(props)
 		this.props.emp.getEmployee.call("0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452", {from: "0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452"})
-			.then((firstName, lastName, passport, counter) => console.log(firstName + ' ' + lastName))
+			.then((result) => console.log(result))
 	}
 
 	componentDidMount() {
