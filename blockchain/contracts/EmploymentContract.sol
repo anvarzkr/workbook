@@ -6,19 +6,11 @@ contract EmploymentContract {
 
     //эта штука короче хранится в компании и в работнике - запись о работе работника в компании
     struct Employment {
-<<<<<<< HEAD
-        address employee;
-        address employer;
-        uint startDate;
-        uint endDate;
-        bytes32 feedback;
-=======
         address employee; //адрес работника
         address employer; //адрес компании
         uint startDate; //начало работы
         uint endDate; //конец работы
         string feedback; //отзыв о работе работника
->>>>>>> very_bad_kostyl
     }
 
     //эта штука это работник
@@ -45,23 +37,6 @@ contract EmploymentContract {
 
     // нанять нового работника с адресом employeeAddr
     function hire(address employeeAddr) {
-<<<<<<< HEAD
-        Employee employee = employeeList[employeeAddr];
-        Company company = companyList[msg.sender];
-        company.employees[company.empCounter] = Employment(employeeAddr, msg.sender, now, 0, "");
-        employee.history[employee.jobCounter] = Employment(employeeAddr, msg.sender, now, 0, "");
-    }
-
-    function getEmployee(address employee) constant returns(bytes32, bytes32, bytes32, uint) {
-        Employee e = employeeList[employee];
-        return (
-            e.firstName,
-            e.lastName,
-            e.passport,
-            e.jobCounter
-        );
-    }
-=======
         Employee storage employee = employeeList[employeeAddr]; // работник, которого хотим нанять
         Company storage company = companyList[msg.sender]; // компания наниматель
         Employment memory emp = Employment(
@@ -120,17 +95,7 @@ contract EmploymentContract {
         emp.endDate = now;
         emp.feedback = feedback; // приписываем отзыв о работе работника к работе
         company.empCounter--;
->>>>>>> very_bad_kostyl
 
-    function getEmployment(address employee, uint index) constant returns(bytes32, bytes32, uint, uint) {
-        Employment e = employeeList[employee].history[index];
-        Company c = companyList[e.employer];
-        return (
-            c.name,
-            c.regNumber,
-            e.startDate,
-            e.endDate
-        );
     }
     function deleteCompany(address companyAddr) {
         require(companyList[msg.sender].companyAddr != address(0x0) && (msg.sender == creator || msg.sender == companyAddr));
@@ -154,23 +119,6 @@ contract EmploymentContract {
         );
     }
 
-<<<<<<< HEAD
-    // function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
-    //     require(msg.sender == creator);
-    //     companyList[companyAddr] = Company(name, regNumber, 0, []);//[]
-
-    // }
-
-
-
-    // function fire(address employeeAddr, string feedback) {
-    //     Employee employee = employeeList[employeeAddr];
-    //     Company company = companyList[msg.sender];
-    //     Employment emp = employee.history[employee.jobCounter];
-    //     emp.feedback = feedback;
-        
-    // }
-=======
     function getEmployment(address employee, uint index) constant returns(bytes32, bytes32, uint, uint) {
         Employment e = employeeList[employee].history[index];
         Company c = companyList[e.employer];
@@ -181,7 +129,6 @@ contract EmploymentContract {
             e.endDate
         );
     }
->>>>>>> very_bad_kostyl
 
     // function getCompany(address companyAddr) {
 
