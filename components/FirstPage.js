@@ -6,56 +6,98 @@ import { Link } from 'react-router';
 import img from '../dist/assets/images/carr.png';
 
 class FirstPage extends Component {
+  constructor (props){
+    super(props);
 
+
+  }
   componentDidMount() {
+    this.setState({
+      currentWorker: data.allworkers[0]
+    });
+    alert(data.lastWork != undefind && this.currentWorker.name === data.lastWork.worker.name);
+    if (data.lastWork != undefind && this.currentWorker === data.lastWork.worker)
+    this.setState({
+      lastWork: data.lastWork
+    });
+  }
+
+  showWorker(date, e){
+    this.setState({
+      currentWorker: date
+    });
+    alert(data.lastWork.worker.name);
+    if (data.lastWork != null && this.currentWorker === data.lastWork.worker)
+    this.setState({
+      lastWork: data.lastWork
+    });
     scroll_event_initializer();
   }
 
   render () {
+      if (lastWork != null)
+      var lastWork = <div className="cd-timeline-block">
+  			<div className="cd-timeline-img cd-movie">
+  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
+  			</div>
+
+  			<div className="cd-timeline-content">
+  				<h2>{this.state.lastWork.company}</h2>
+  				<p>{this.state.lastWork.review}</p>
+  				<span className="cd-date">{this.state.lastWork.date}</span>
+  			</div>
+  		</div>;
+      else
+        var lastWork = "";
+      const workers = data.allworkers.map((person, index) =>{
+        let showWorker = this.showWorker.bind(this, person);
+
+        return <button className="list-group-item" onClick={showWorker} key={index}>{person.name}</button>
+      });
       return (<div>
         <header>
-  		<h1>Личный кабинет работника <Link to='/company'>Компания</Link></h1> <br/>
-      <h2>Моя трудовая книжка</h2>
-  	</header>
+  		    <h1>Личный кабинет работника <Link to='/company' params={{ data: this.state }}>Компания</Link></h1> <br/>
+  	    </header>
 
-  	<div className="container">
-      <div className="row">
-          <div className=" col-lg-offset-3 col-lg-6">
-              <div className="panel panel-default">
-                  <div className="panel-body">
-                      <div className="row">
-                          <div className="col-lg-12">
-                              <div className="row">
-                                  <div className="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                      <img className="img-circle img-responsive" src="http://www.freeiconspng.com/uploads/gaben-face-png-27.png"/>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="row">
-                          <div className="col-lg-12">
-                              <div className="row">
-                                  <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                      <div itemScope="" itemType="http://schema.org/Person">
-                                          <h2 className="for_name"> <span itemProp="name">Name</span></h2>
-                                          <p className="for_name"><span itemProp="affiliation">Current Company</span></p>
-                                          <p className="for_name">
-                                              <i className="fa fa-map-marker"></i> <span itemProp="addressRegion">City</span>
-                                          </p>
-                                          <p className="for_name" itemProp="email">Mail </p>
+      	<div className="container-field">
+          <div className="row">
+              <div className="col-lg-3">
+                <div className="list-group">
+                  {workers}
+                </div>
+              </div>
+              <div className="col-lg-6">
+                  <div className="panel panel-default">
+                      <div className="panel-body">
+                          <div className="row">
+                              <div className="col-lg-12">
+                                  <div className="row">
+                                      <div className="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                                          <img className="img-circle img-responsive" src="http://www.freeiconspng.com/uploads/gaben-face-png-27.png"/>
                                       </div>
                                   </div>
                               </div>
                           </div>
-                          <div className="col-lg-12 centered-text">
-                              Your Short Bio goes here.
+                          <div className="row">
+                              <div className="col-lg-12">
+                                  <div className="row">
+                                      <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+                                          <div itemScope="" itemType="http://schema.org/Person">
+                                              <h2 className="for_name"> <span itemProp="name">{this.state.currentWorker.name}</span></h2>
+                                              <br/>
+                                              <p className="for_name"><span itemProp="affiliation">{this.state.currentWorker.company}</span></p>
+
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-      </div>
-  </div>
+        </div>
 
 
   	<section id="cd-timeline" className="cd-container">
@@ -133,30 +175,13 @@ class FirstPage extends Component {
   				<h2>Title of section 5</h2>
   				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
   				<a href="#0" className="cd-read-more">Read more</a>
-  				<span className="cd-date">Feb 18</span>
+  				<span className="cd-date">Mar 20</span>
   			</div>
   		</div>
+        {lastWork}
 
-  		<div className="cd-timeline-block">
-  			<div className="cd-timeline-img cd-movie">
-  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
-  			</div>
-
-  			<div className="cd-timeline-content">
-  				<h2>Final Section</h2>
-  				<p>This is the content of the last section</p>
-  				<span className="cd-date">Feb 26</span>
-  			</div>
-  		</div>
   	</section>
-    <h2>Скиллы работника</h2>
 
-    <div className="progress">
-  <div className="progress-bar" role="progressbar" aria-valuenow="70"
-  aria-valuemin="0" aria-valuemax="100">
-    <span className="sr-only">70% Complete</span>
-  </div>
-</div>
 
       </div>
 

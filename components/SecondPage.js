@@ -1,72 +1,13 @@
 import React, { Component } from 'react'
 import '../dist/assets/css/company.css';
-
+import { Link } from 'react-router';
 class SecondPage extends Component{
   constructor(props) {
     super(props);
+    this.state = state;
     this.showWorkers = this.showWorkers.bind(this);
     this.showCandidate = this.showCandidate.bind(this);
     this.submit = this.submit.bind(this);
-    var c = [{
-        "name": "Иванов Иван Иванович",
-        "id": "12sdk12esdf12",
-        "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-        "name": "Смирнов Иван Иванович",
-        "id": "12sdk12esdf12",
-        "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Сидоров Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Ерушкин Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Пяткин Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Ульянов Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Григорьев Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }
-    ];
-    var w = [{
-        "name": "Гумаров Иван Иванович",
-        "id": "12sdk12esdf12",
-        "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-        "name": "Варнава Иван Иванович",
-        "id": "12sdk12esdf12",
-        "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Закиров Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }, {
-          "name": "Магомедов Иван Иванович",
-          "id": "12sdk12esdf12",
-          "company": "Hikester", "date_begin": "20.03.2017"
-      }
-    ];
-
-    this.state = {
-      candidats: c,
-      workers: w,
-      data: {
-        "name": "",
-        "id": "",
-        "company": "",
-        "period": ""
-      },
-      inputValue: 'Please write an essay about your favorite DOM element.'
-    };
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
@@ -107,7 +48,9 @@ class SecondPage extends Component{
 
     var array = this.state.workers;
     var index = array.indexOf(data); // Let's say it's Bob.
-    delete array[index];
+
+    array.splice(index, 1);
+
     this.setState({
       workers: array
     })
@@ -117,7 +60,9 @@ class SecondPage extends Component{
     this.setState({workers: this.state.workers.concat([data])})
     var array = this.state.candidats;
     var index = array.indexOf(data);
-    delete array[index];
+
+    array.splice(index, 1);
+
     this.setState({
       candidats: array
     })
@@ -127,7 +72,13 @@ class SecondPage extends Component{
     var review = this.state.inputValue;
     this.deleteFromState(this.state.data);
     $('#myModal').modal('hide');
-
+    data.lastWork = {
+      "worker": this.state.data,
+      "company": this.state.data.company,
+      "review": this.state.inputValue,
+      "date": "Aug 29",
+    }
+    data.workers = this.state.workers;
   }
 
   render () {
@@ -160,7 +111,7 @@ class SecondPage extends Component{
       <div>
       <header>
 
-        <h1 className="second_page" >Hikester</h1>
+        <h1 className="second_page" ><Link to='/'>Назад</Link>Hikester</h1>
       </header>
     <div className="container second_page">
 
