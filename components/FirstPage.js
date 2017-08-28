@@ -15,19 +15,16 @@ class FirstPage extends Component {
     this.setState({
       currentWorker: data.allworkers[0]
     });
-    alert(data.lastWork != undefind && this.currentWorker.name === data.lastWork.worker.name);
-    if (data.lastWork != undefind && this.currentWorker === data.lastWork.worker)
-    this.setState({
-      lastWork: data.lastWork
-    });
+    alert(data.lastWork != null && this.state.currentWorker.name === data.lastWork.worker.name);
+
+
   }
 
   showWorker(date, e){
     this.setState({
       currentWorker: date
     });
-    alert(data.lastWork.worker.name);
-    if (data.lastWork != null && this.currentWorker === data.lastWork.worker)
+    if (data.lastWork != null && this.state.currentWorker === data.lastWork.worker)
     this.setState({
       lastWork: data.lastWork
     });
@@ -35,7 +32,16 @@ class FirstPage extends Component {
   }
 
   render () {
-      if (lastWork != null)
+    console.log(data.lastWork.worker.name);
+    console.log(this.state.currentWorker.name);
+    console.log(data.lastWork != null && this.state.currentWorker.name == data.lastWork.worker.name)
+    if (data.lastWork != null && this.state.currentWorker.name == data.lastWork.worker.name)
+      this.state.lastWork= data.lastWork;
+    else {
+      this.state.lastWork = null
+    }
+    // });
+      if (this.state.lastWork != null)
       var lastWork = <div className="cd-timeline-block">
   			<div className="cd-timeline-img cd-movie">
   				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
