@@ -9,7 +9,7 @@ contract EmploymentContract {
         address employer;
         uint startDate;
         uint endDate;
-        // string feedback;
+        bytes32 feedback;
     }
 
     struct Employee {
@@ -33,23 +33,45 @@ contract EmploymentContract {
     function hire(address employeeAddr) {
         Employee employee = employeeList[employeeAddr];
         Company company = companyList[msg.sender];
-        Employment emp = Employment(employeeAddr, msg.sender, now, 0, 0); //0 - feedback
-        company.employees[company.empCounter] = emp;
-        employee.history[employee.jobCounter] = emp;
+        company.employees[company.empCounter] = Employment(employeeAddr, msg.sender, now, 0, "");
+        employee.history[employee.jobCounter] = Employment(employeeAddr, msg.sender, now, 0, "");
     }
 
-    function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
-        require(msg.sender == creator);
-        companyList[companyAddr] = Company(name, regNumber, 0, []);//[]
-
+    function getEmployee(address employee) constant returns(bytes32, bytes32, bytes32, uint) {
+        Employee e = employeeList[employee];
+        return (
+            e.firstName,
+            e.lastName,
+            e.passport,
+            e.jobCounter
+        );
     }
 
-    function fire(address employeeAddr, string feedback) {
-        Employee employee = employeeList[employeeAddr];
-        Company company = companyList[msg.sender];
-        Employment emp = employee.history[employee.jobCounter];
-        emp.feedback = feedback;
+    function getEmployment(address employee, uint index) constant returns(bytes32, bytes32, uint, uint) {
+        Employment e = employeeList[employee].history[index];
+        Company c = companyList[e.employer];
+        return (
+            c.name,
+            c.regNumber,
+            e.startDate,
+            e.endDate
+        );
+    }
+
+    // function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
+    //     require(msg.sender == creator);
+    //     companyList[companyAddr] = Company(name, regNumber, 0, []);//[]
+
+    // }
+
+
+
+    // function fire(address employeeAddr, string feedback) {
+    //     Employee employee = employeeList[employeeAddr];
+    //     Company company = companyList[msg.sender];
+    //     Employment emp = employee.history[employee.jobCounter];
+    //     emp.feedback = feedback;
         
-    }
+    // }
 
 }

@@ -5,11 +5,17 @@ import scroll_event_initializer from '../dist/assets/js/main.js';
 
 class FirstPage extends Component {
 
-  componentDidMount() {
-    scroll_event_initializer();
-  }
+	constructor(props) {
+		super(props)
+		this.props.emp.getEmployee.call("0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452", {from: "0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452"})
+			.then((firstName, lastName, passport, counter) => console.log(firstName + ' ' + lastName))
+	}
 
-  render () {
+	componentDidMount() {
+		scroll_event_initializer();
+	}
+
+  	render () {
       return (<div>
         <header>
   		<h1>Work book</h1>

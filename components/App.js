@@ -4,7 +4,7 @@ import FirstPage from './FirstPage'
 class App extends Component{
   render(){
       return (<div>
-        <FirstPage/>
+        <FirstPage emp={this.props.emp}/>
         </div>
       );
   }
