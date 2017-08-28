@@ -111,7 +111,7 @@ class SecondPage extends Component{
       <div>
       <header>
 
-        <h1 className="second_page" ><Link to='/'>Назад</Link>Hikester</h1>
+        <h1 className="second_page" ><Link to='/'>Назад</Link> Hikester</h1>
       </header>
     <div className="container second_page">
 

@@ -15,7 +15,6 @@ class FirstPage extends Component {
     this.setState({
       currentWorker: data.allworkers[0]
     });
-    alert(data.lastWork != null && this.state.currentWorker.name === data.lastWork.worker.name);
 
 
   }
@@ -32,9 +31,6 @@ class FirstPage extends Component {
   }
 
   render () {
-    console.log(data.lastWork.worker.name);
-    console.log(this.state.currentWorker.name);
-    console.log(data.lastWork != null && this.state.currentWorker.name == data.lastWork.worker.name)
     if (data.lastWork != null && this.state.currentWorker.name == data.lastWork.worker.name)
       this.state.lastWork= data.lastWork;
     else {
@@ -79,7 +75,7 @@ class FirstPage extends Component {
                               <div className="col-lg-12">
                                   <div className="row">
                                       <div className="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                          <img className="img-circle img-responsive" src="http://www.freeiconspng.com/uploads/gaben-face-png-27.png"/>
+                                          <img className="img-circle img-responsive" src="https://s-media-cache-ak0.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png"/>
                                       </div>
                                   </div>
                               </div>
@@ -113,8 +109,11 @@ class FirstPage extends Component {
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 1</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+  				<h2>Ак барс</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно относился к выполняемой работе. Вдумчиво и со знанием дела подходил к выполнению задания. В своей работе успешно применял полученные в Финансовой Академии при Правительстве РФ знания. Проявил себя дисциплинированным, ответственным работником и за весь срок не получил ни одного замечания. Полученную информацию систематизирует, владеет инструментами анализа. Проявляет инициативу, коммуникабелен, берется за любые задания, четко и в определенные сроки выполняет их. По результатам выполнения отчитывается</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 14</span>
   			</div>
@@ -126,8 +125,11 @@ class FirstPage extends Component {
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 2</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+  				<h2>Яндкс</h2>
+  				<p>акультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно относился к выполняемой работе. Вдумчиво и со знанием дела подходил к выполнению задания. В своей работе успешно применял полученные в Финансовой Академии при Правительстве РФ знания. Проявил себя дисциплинированным, ответственным работником и за весь срок не получил ни одного замечания. Полученную информацию систематизирует, владеет инструментами анализа. Проявляет инициативу, коммуникабелен, берется за любые задания, четко и в определенные сроки выполняет их. По результатам выполнения отчитывается</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 18</span>
   			</div>
@@ -139,8 +141,14 @@ class FirstPage extends Component {
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 3</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+  				<h2>Сбертех</h2>
+  				<p>Факультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно относился к выполняемой работе. Вдумчиво и со знанием дела подходил к выполнению задания. В своей работе успешно применял полученные в Финансовой Академии при Правительстве РФ знания. Проявил себя дисциплинированным, ответственным работником и за весь срок не получил ни одного замечания. Полученную информацию систематизирует, владеет инструментами анализа. Проявляет инициативу, коммуникабелен, берется за любые задания, четко и в определенные сроки выполняет их. По результатам выполнения отчитывается перед руководителем. Рабочее место организовано правильно.
+С сотрудниками Банка поддерживал дружеские отношения, не конфликтен. Легко входит в контакт с людьми, в любой ситуации был уважителен в общении с другими.
+Выполняемая работа ему нравится, любит видеть ее результаты. Аккуратен при работе с документами и деньгами. Обладает необходимыми знаниями для выполнения своих должностных обязанностей.
+Считаю, что по результатам работы Иванов С.П. можно оценить производственную преддипломную практику на оценку «отлично».</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 24</span>
   			</div>
@@ -152,8 +160,11 @@ class FirstPage extends Component {
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 3</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+  				<h2>Мэйл ру</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего специалиста отдела Кредитования малого бизнеса.
+За этот период он внимательно и ответственно</p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Jan 27</span>
   			</div>
@@ -165,8 +176,10 @@ class FirstPage extends Component {
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 4</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+  				<h2>Гугл</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего </p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Feb 14</span>
   			</div>
@@ -178,8 +191,10 @@ class FirstPage extends Component {
   			</div>
 
   			<div className="cd-timeline-content">
-  				<h2>Title of section 5</h2>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
+  				<h2>Иннополис</h2>
+  				<p>Фкультета открытого образования Финансовой академии при Правительстве РФ
+Студент Иванов Сергей Петрович проходил преддипломную производственную практику в ДО «Кутузовский проспект» КБ «ЮНИАСТРУМ БАНК» (ООО), Москва, с 16 января 2009г. по 22 апреля 2009г.
+Он исполнял обязанности старшего </p>
   				<a href="#0" className="cd-read-more">Read more</a>
   				<span className="cd-date">Mar 20</span>
   			</div>
