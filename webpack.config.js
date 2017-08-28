@@ -19,6 +19,10 @@ module.exports = {
   module: {
       loaders: [
         {
+              test: /\.(png|jpg)$/,
+              loader: 'url-loader?limit=100000&name=./imgs/[hash].[ext]'
+        },
+        {
           test: /\.json$/,
           loader: 'json-loader'
         },
