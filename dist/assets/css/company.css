@@ -1,3 +1,18 @@
+.modal-name{
+  float: right;
+}
+
+/*.modal-area{
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}*/
+
+.modal-label {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
 .btn-circle.btn-xl {
   width: 70px;
   height: 70px;
@@ -29,11 +44,7 @@ h3.second_page {
   margin-bottom: 24px;
 }
 
-h1.second_page {
-  margin-top: 24px;
-  margin-bottom: 24px;
-}
-
 .container.second_page {
   color: #333;
+  margin-top: 48px;
 }
