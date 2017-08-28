@@ -45,41 +45,33 @@ contract EmploymentContract {
             now,
             0,
             ""
-        ); 
+        );
             //0 - feedback. Создаем новую работу. работник, компания, с текущего момента начало работы, конца ещще нет, фидбека тоже нет
         company.employees[company.empCounter] = emp; // добавляем эту работу в список из работ работников компании
         employee.history[employee.jobCounter] = emp; // добавляем эту работу в историю работ этого работника
         company.empCounter++;
     }
 
-    // function addEmployee(
-    //     address employeeAddr,
-    //     bytes32 firstName,
-    //     bytes32 lastName,
-    //     bytes32 passport) {
-    //     require(companyList[msg.sender].companyAddr != address(0x0)); // проверка на нул
-    //     employeeList[employeeAddr] = Employee(
-    //         employeeAddr,
-    //         firstName,
-    //         lastName,
-    //         passport,
-    //         0,
-    //         new Employment[](0)
-    //     ); // 0 []
-    // }
+    function addEmployee(
+        address employeeAddr,
+        bytes32 firstName,
+        bytes32 lastName,
+        bytes32 passport) {
+        require(companyList[msg.sender].companyAddr != address(0x0)); // проверка на нул
+        employeeList[employeeAddr].employeeAddr = employeeAddr;
+        employeeList[employeeAddr].firstName = firstName;
+        employeeList[employeeAddr].lastName = lastName;
+        employeeList[employeeAddr].passport = passport;
+        // employeeList[employeeAddr] = employee;
+    }
 
     // добавить компанию в реестр
-    // function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
-    //     require(msg.sender == creator); // добавить новую компанию может только создатель
-    //     companyList[companyAddr] = Company(
-    //         companyAddr,
-    //         name,
-    //         regNumber,
-    //         0,
-    //         new Employment[](0)
-    //     );//[] // создали компанию
-
-    // }
+    function addCompany(address companyAddr, bytes32 name, bytes32 regNumber) {
+        require(msg.sender == creator); // добавить новую компанию может только создатель
+        companyList[companyAddr].companyAddr = companyAddr;
+        companyList[companyAddr].name = name;
+        companyList[companyAddr].regNumber = regNumber;
+    }
 
     //уволить
     function fire(address employeeAddr, string feedback) { // адрес работника, кого надо уволить, отзыв о работнике
