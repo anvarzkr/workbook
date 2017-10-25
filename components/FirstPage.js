@@ -9,27 +9,14 @@ class FirstPage extends Component {
   constructor (props){
     super(props);
 
-<<<<<<< HEAD
-	constructor(props) {
-		super(props)
-		this.props.emp.getEmployee.call("0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452", {from: "0x01dfbded0c1f7fa09d7a0df1d785ec624f3d4452"})
-			.then((result) => console.log(result))
-	}
-
-	componentDidMount() {
-		scroll_event_initializer();
-	}
-
-  	render () {
-=======
-
+    this.state = {};
   }
   componentDidMount() {
     this.setState({
       currentWorker: data.allworkers[0]
     });
 
-
+    scroll_event_initializer();
   }
 
   showWorker(date, e){
@@ -51,17 +38,17 @@ class FirstPage extends Component {
     }
     // });
       if (this.state.lastWork != null)
-      var lastWork = <div className="cd-timeline-block">
-  			<div className="cd-timeline-img cd-movie">
-  				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
-  			</div>
+        var lastWork = <div className="cd-timeline-block">
+    			<div className="cd-timeline-img cd-movie">
+    				<img src="https://cdn1.iconfinder.com/data/icons/office-icons-17/512/ilustracoes_04-13-128.png" alt="Picture"/>
+    			</div>
 
-  			<div className="cd-timeline-content">
-  				<h2>{this.state.lastWork.company}</h2>
-  				<p>{this.state.lastWork.review}</p>
-  				<span className="cd-date">{this.state.lastWork.date}</span>
-  			</div>
-  		</div>;
+    			<div className="cd-timeline-content">
+    				<h2>{this.state.lastWork.company}</h2>
+    				<p>{this.state.lastWork.review}</p>
+    				<span className="cd-date">{this.state.lastWork.date}</span>
+    			</div>
+    		</div>;
       else
         var lastWork = "";
       const workers = data.allworkers.map((person, index) =>{
@@ -69,7 +56,7 @@ class FirstPage extends Component {
 
         return <button className="list-group-item" onClick={showWorker} key={index}>{person.name}</button>
       });
->>>>>>> very_bad_kostyl
+
       return (<div>
         <header>
   		    <h1>Личный кабинет работника <Link to='/company' params={{ data: this.state }}>Компания</Link></h1> <br/>
