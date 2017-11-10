@@ -14,9 +14,9 @@ if (typeof web3 !== 'undefined') {
 }
 
 Empl.setProvider(web3.currentProvider)
-let emp = Empl.at("0xda13933f1a2cda9bcdb315ff138694074f56ae5c")
+window.emp = Empl.at("0xe9C86D228C21A78787c237C731A87c0637Ac0D1b")
 
 render(
-  <App emp={emp}/>,
+  <App/>,
   document.getElementById('app')
 )
