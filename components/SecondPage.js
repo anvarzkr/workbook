@@ -82,104 +82,101 @@ class SecondPage extends Component{
   }
 
   render () {
-    const candidats = this.state.candidats.map((person, index) =>{
-    let addPerson = this.addCandidate.bind(this, person);
-    return <a className="list-group-item clearfix" key={index}>
-        {person.name}
-        <span className="pull-right">
+    const candidats = this.state.candidats.map((person, index) => {
+      let addPerson = this.addCandidate.bind(this, person);
+      return (
+        <a className="list-group-item clearfix" key={index}>
+          {person.name}
+          <span className="pull-right">
             <span className="btn btn-success btn-circle" onClick={addPerson}>
-                <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </span>
-        </span>
-    </a>});
+          </span>
+        </a>
+      );
+    });
 
     const workers = this.state.workers.map((person, index) =>{
       let removePerson = this.removeWorker.bind(this, person);
 
-      return <a className="list-group-item clearfix" key={index}>
-                {person.name}
-                <span className="pull-right">
-                    <span className="btn btn-danger btn-circle" onClick={removePerson}>
-                        <span className="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                    </span>
-                </span>
-            </a>
+      return (
+        <a className="list-group-item clearfix" key={index}>
+          {person.name}
+          <span className="pull-right">
+            <span className="btn btn-danger btn-circle" onClick={removePerson}>
+              <span className="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </span>
+          </span>
+        </a>
+      );
     });
     // Only do this if items have no stable IDs
 
     return(
       <div>
-      <header>
-
-        <h1 className="second_page" ><Link to='/'>Назад</Link> Hikester</h1>
-      </header>
-    <div className="container second_page">
-
-
-      <div className="row">
-        <div className="col-md-10 col-md-offset-1 text-center">
-
+        <header>
+          <h1 className="second_page" >
+            Компания
+          </h1>
+        </header>
+        <div className="container second_page">
+          <div className="row">
+            <div className="col-md-10 col-md-offset-1 text-center">
               <button id="users" type="button" onClick={this.showWorkers} className="btn btn-primary btn-circle btn-xl my_btn" >
-                <i className="glyphicon glyphicon-user"></i>
+              <i className="glyphicon glyphicon-user"></i>
               </button>
-
               <button id="add_user_btn" type="button" onClick={this.showCandidate} className="btn btn-success btn-circle btn-xl my_btn" >
-                <i className="glyphicon glyphicon-plus"></i>
+              <i className="glyphicon glyphicon-plus"></i>
               </button>
-
-        <div/>
-        <div id="users_collapse" ref="users_collapse" className="collapse in">
-          <div className="col-md-8 col-md-offset-2">
-              <h3 className="second_page" >Штат</h3>
-              <div className="list-group">
-                  {workers}
+              <div/>
+                <div id="users_collapse" ref="users_collapse" className="collapse in">
+                  <div className="col-md-8 col-md-offset-2">
+                    <h3 className="second_page" >Штат</h3>
+                    <div className="list-group">
+                      {workers}
+                    </div>
+                  </div>
+                </div>
+                <div id="add_users_collapse" ref="add_users_collapse" className="collapse">
+                  <div className="col-md-8 col-md-offset-2">
+                    <h3 className="second_page" >Кандидаты</h3>
+                    <div className="list-group">
+                      {candidats}
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
 
-        </div>
-
-        <div id="add_users_collapse" ref="add_users_collapse" className="collapse">
-          <div className="col-md-8 col-md-offset-2">
-              <h3 className="second_page" >Кандидаты</h3>
-              <div className="list-group">
-                {candidats}
+          <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 className="modal-title" id="myModalLabel" style={{textAlign: "center"}}>Отзыв о работнике</h4>
+                </div>
+                <div className="modal-body">
+                  <label className="modal-label">Имя:<span className="modal-name">{this.state.data.name}</span></label>
+                  <label className="modal-label">Аддрес трудовой книжки:<span className="modal-name">{this.state.data.id}</span></label>
+                  <label className="modal-label">Компания:<span className="modal-name">{this.state.data.company}</span></label>
+                  <label className="modal-label">Дата начала работы:<span className="modal-name">{this.state.data.date_begin}</span></label>
+                  <label className="modal-label">Стаж работы:<span className="modal-name">{this.state.data.period}</span></label>
+                  <br/>
+                  <div className="form-group">
+                    <label className="modal-label" for="comment">Отзыв:</label>
+                    <textarea value={this.state.inputValue} onChange={this.handleChange} className="form-control modal-area" rows="5" id="comment"></textarea>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button id="modal_cancel" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="modal_submit" type="button" onClick={this.submit} className="btn btn-primary">Save changes</button>
+                </div>
               </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      </div>
-
-      <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 className="modal-title" id="myModalLabel" style={{textAlign: "center"}}>Отзыв о работнике</h4>
-            </div>
-            <div className="modal-body">
-
-            <label className="modal-label">Имя:<span className="modal-name">{this.state.data.name}</span></label>
-            <label className="modal-label">Аддрес трудовой книжки:<span className="modal-name">{this.state.data.id}</span></label>
-            <label className="modal-label">Компания:<span className="modal-name">{this.state.data.company}</span></label>
-            <label className="modal-label">Дата начала работы:<span className="modal-name">{this.state.data.date_begin}</span></label>
-            <label className="modal-label">Стаж работы:<span className="modal-name">{this.state.data.period}</span></label>
-
-            <br/>
-            <div className="form-group">
-              <label className="modal-label" for="comment">Отзыв:</label>
-              <textarea value={this.state.inputValue} onChange={this.handleChange} className="form-control modal-area" rows="5" id="comment"></textarea>
-            </div>
-
-            </div>
-            <div className="modal-footer">
-              <button id="modal_cancel" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-              <button id="modal_submit" type="button" onClick={this.submit} className="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
-      </div>
-
-    </div>);}
+    );
+  }
 }
 export default SecondPage
