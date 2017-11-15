@@ -32,9 +32,9 @@ export default class SignUp extends React.Component {
 
   signUp() {
     if (this.state.user_type == '0') {
-      // User Sign Up
+      emp.addEployee(window.web3.eth.accounts[0], this.state.first_name, this.state.last_name, this.state.passport)
     } else {
-      // Company Sign Up
+      emp.addCompany(window.web3.eth.accounts[0], this.state.company_name, this.state.reg_number)
     }
   }
 
