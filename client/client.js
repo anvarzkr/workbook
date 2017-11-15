@@ -14,7 +14,7 @@ if (typeof web3 !== 'undefined') {
 }
 
 Empl.setProvider(web3.currentProvider)
-window.emp = Empl.at("0x32De2c8e7646a80C94c1C9a8DC9b987a59B0f760")
+window.emp = Empl.at("0x797eE5fC3B3148879467c714191A7c284F09B92c")
 
 window.emplAddress = "0xdb57eE5294c235f68d43F536D119a365DDA261C2"
 window.compAddress = "0x943c526586938ea31529C0471714e4e29bA96Ed8"
