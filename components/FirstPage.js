@@ -15,13 +15,17 @@ class FirstPage extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!authorized) {
       this.props.history.push('/sign_up');
+      return;
     }
 
     var t = this;
     var worker;
+
+    let person_id = this.props.params.person_id;
+    console.log(person_id);
 
     if (person_id == undefined) {
       // /person/:person_id
