@@ -6,7 +6,7 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {      
+    this.state = {
       user_type: '0',
       first_name: '',
       last_name: '',
@@ -19,8 +19,15 @@ export default class SignUp extends React.Component {
     this.signUp = this.signUp.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    fetchData(this.callback.bind(this));
+  }
 
+  callback() {
+    if (authorized) {
+      this.props.history.push('/');
+      return;
+    }
   }
 
   inputOnChange(e) {
@@ -33,14 +40,14 @@ export default class SignUp extends React.Component {
     console.log("on click")
     if (this.state.user_type == '0') {
       emp.addEmployee(window.web3.eth.accounts[0], this.state.first_name, this.state.last_name, this.state.passport, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data) {
-    
+
       console.log('Add client, tx address: ' + data);
-      }); 
+      });
     } else {
       emp.addCompany(window.web3.eth.accounts[0], this.state.company_name, this.state.reg_number, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data) {
-    
+
       console.log('Add client, tx address: ' + data);
-      }); 
+      });
     }
   }
 

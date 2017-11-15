@@ -12,10 +12,16 @@ class FirstPage extends Component {
 
     this.state = {
       currentUser: {},
+      work_places: []
     };
   }
 
   componentDidMount() {
+    fetchData(this.callback.bind(this));
+  }
+
+  callback() {
+    console.log("callback");
     if (!authorized) {
       this.props.history.push('/sign_up');
       return;
@@ -24,8 +30,8 @@ class FirstPage extends Component {
     var t = this;
     var worker;
 
-    let person_id = this.props.params.person_id;
-    console.log(person_id);
+    let person_id = this.props.params.person_id || currentUser.address;
+    console.log("Person ID: ", person_id);
 
     if (person_id == undefined) {
       // /person/:person_id
@@ -38,6 +44,8 @@ class FirstPage extends Component {
 						passport: data[3],
 						user_type: 1
 					}
+        }, function() {
+          console.log(currentUser);
         });
 
         console.log(data);
@@ -45,6 +53,8 @@ class FirstPage extends Component {
     } else {
       t.setState({
         currentUser: currentUser
+      }, function() {
+        console.log(currentUser);
       });
       // root path /
     }

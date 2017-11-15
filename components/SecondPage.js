@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../dist/assets/css/company.css';
 import { Link } from 'react-router';
 class SecondPage extends Component{
+
   constructor(props) {
     super(props);
     this.state = state;
@@ -10,9 +11,19 @@ class SecondPage extends Component{
     this.submit = this.submit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount() {
+    fetchData(this.callback.bind(this));
+  }
+
+  callback() {
+
+  }
+
   handleChange(event) {
     this.setState({inputValue: event.target.value});
   }
+
   showWorkers() {
     $("#add_users_collapse").collapse('hide');
     $("#users_collapse").collapse('show');
