@@ -10,11 +10,22 @@ class FirstPage extends Component {
   constructor (props){
     super(props);
 
-    this.state = {};
+    this.state = {
+      person_id: 0
+    };
   }
 
   componentWillMount() {
+    console.log();
+    var person_id = this.props.params.person_id;
+    if (person_id == undefined) {
+      person_id = '0x'; // emp_address
+    }
+
+    console.log(person_id);
+
     this.setState({
+      person_id: person_id,
       currentWorker: data.allworkers[0],
       work_places: [
         {
