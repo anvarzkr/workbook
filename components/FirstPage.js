@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../dist/assets/css/reset.css';
 import '../dist/assets/css/style.css';
 import scroll_event_initializer from '../dist/assets/js/main.js';
-import { Link } from 'react-router';
+import { Link,  } from 'react-router';
 import img from '../dist/assets/images/carr.png';
 import TimeLine from './TimeLine';
 
@@ -10,20 +10,41 @@ class FirstPage extends Component {
   constructor (props){
     super(props);
 
-    this.state = {currentWorker: {}};
+    this.state = {
+      currentUser: {},
+    };
   }
 
   componentWillMount() {
-    var worker;
+    if (!authorized) {
+      this.props.history.push('/sign_up');
+    }
+
     var t = this;
-    emp.getEmployee(emplAddress).then(function(data){
-      worker = data;
-      t.setState({
-        currentWorker: {name: data[0] + " " + data[1]}
+    var worker;
+
+    if (person_id == undefined) {
+      // /person/:person_id
+      emp.getEmployee(person_id).then(function(data){
+        worker = data;
+        t.setState({
+          currentUser: {
+						address: data[0],
+						name: data[1] + ' ' + data[2],
+						passport: data[3],
+						user_type: 1
+					}
+        });
+
+        console.log(data);
       });
-      console.log(data);
-    });
-    
+    } else {
+      t.setState({
+        currentUser: currentUser
+      });
+      // root path /
+    }
+
     this.setState({
       work_places: [
         {
@@ -88,7 +109,7 @@ class FirstPage extends Component {
                                   <div className="row">
                                       <div className="centered-text col-sm-offset-3 col-sm-6 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
                                           <div itemScope="" itemType="http://schema.org/Person">
-                                              <h2 className="for_name"> <span itemProp="name">{this.state.currentWorker.name}</span></h2>
+                                              <h2 className="for_name"> <span itemProp="name">{this.state.currentUser.name}</span></h2>
                                               <br/>
                                           </div>
                                       </div>
