@@ -24,44 +24,46 @@ window.authorized = false;
 window.user_type = 0;// 0 - employee, 1 - company
 
 window.fetchData = function(callback) {
-window.emp.employeeList(window.web3.eth.accounts[0]).then(function(data){
-	  if (data[1] == ""){
-	  	window.emp.companyList(window.web3.eth.accounts[0]).then(function(data){
-	  		if (data[1] == ""){
-	  			window.authorized = false;
-	  		}
-	  		else{
-	  			window.currentUser = {
-						address: data[0],
-						name: data[1],
-						passport: data[2],
-						user_type: 1
-					};
-	  			// window.compAddress = currentUser[0];
-	  			// window.user_type = 1;
-	  			window.authorized = true;
-	  			console.log(window.currentUser);
-	  		}
+	setTimeout(function() {
+		console.log("Metamask address: ", window.web3.eth.accounts[0]);
+		window.emp.employeeList(window.web3.eth.accounts[0]).then(function(data){
+		  if (data[1] == ""){
+		  	window.emp.companyList(window.web3.eth.accounts[0]).then(function(data){
+		  		if (data[1] == ""){
+		  			window.authorized = false;
+		  		}
+		  		else{
+		  			window.currentUser = {
+							address: data[0],
+							name: data[1],
+							passport: data[2],
+							user_type: 1
+						};
+		  			// window.compAddress = currentUser[0];
+		  			// window.user_type = 1;
+		  			window.authorized = true;
+		  			console.log(window.currentUser);
+		  		}
 
-				callback();
-	  	});
-	  }
-	  else{
-	  	window.currentUser = {
-				address: data[0],
-				name: data[1] + ' ' + data[2],
-				reg_number: data[3],
-				user_type: 0
-			};
-	  	// window.emplAddress = currentUser[0];
-	  	// window.user_type = 0;
-	  	window.authorized = true;
-	  	console.log(window.currentUser);
-	  }
+					callback();
+		  	});
+		  }
+		  else{
+		  	window.currentUser = {
+					address: data[0],
+					name: data[1] + ' ' + data[2],
+					reg_number: data[3],
+					user_type: 0
+				};
+		  	// window.emplAddress = currentUser[0];
+		  	// window.user_type = 0;
+		  	window.authorized = true;
+		  	console.log(window.currentUser);
+		  }
 
-		callback();
-
-    });
+			callback();
+	  });
+	}, 300);
 }
 
 render(

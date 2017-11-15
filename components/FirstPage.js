@@ -22,6 +22,8 @@ class FirstPage extends Component {
 
   callback() {
     console.log("callback");
+    let person_id = this.props.params.person_id;
+
     if (!authorized) {
       this.props.history.push('/sign_up');
       return;
@@ -30,18 +32,17 @@ class FirstPage extends Component {
     var t = this;
     var worker;
 
-    let person_id = this.props.params.person_id || currentUser.address;
     console.log("Person ID: ", person_id);
 
-    if (person_id == undefined) {
+    if (person_id != undefined) {
       // /person/:person_id
       emp.getEmployee(person_id).then(function(data){
         worker = data;
         t.setState({
           currentUser: {
-						address: data[0],
-						name: data[1] + ' ' + data[2],
-						passport: data[3],
+						address: person_id,
+						name: data[0] + ' ' + data[1],
+						passport: data[2],
 						user_type: 1
 					}
         }, function() {
@@ -51,6 +52,9 @@ class FirstPage extends Component {
         console.log(data);
       });
     } else {
+      person_id = currentUser.address;
+      console.log("Person ID: ", person_id);
+
       t.setState({
         currentUser: currentUser
       }, function() {
