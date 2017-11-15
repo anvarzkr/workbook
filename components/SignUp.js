@@ -30,10 +30,17 @@ export default class SignUp extends React.Component {
   }
 
   signUp() {
+    console.log("on click")
     if (this.state.user_type == '0') {
-      emp.addEployee(window.web3.eth.accounts[0], this.state.first_name, this.state.last_name, this.state.passport)
+      emp.addEmployee(window.web3.eth.accounts[0], this.state.first_name, this.state.last_name, this.state.passport, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data) {
+    
+      console.log('Add client, tx address: ' + data);
+      }); 
     } else {
-      emp.addCompany(window.web3.eth.accounts[0], this.state.company_name, this.state.reg_number)
+      emp.addCompany(window.web3.eth.accounts[0], this.state.company_name, this.state.reg_number, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data) {
+    
+      console.log('Add client, tx address: ' + data);
+      }); 
     }
   }
 
@@ -91,7 +98,7 @@ export default class SignUp extends React.Component {
                   </div>
                 }
                 <br/>
-                <button onClick={this.state.signUp}>Регистрация</button>
+                <button onClick={this.signUp}>Регистрация</button>
               </div>
             </div>
           </div>
