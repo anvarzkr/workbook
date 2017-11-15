@@ -10,12 +10,21 @@ class FirstPage extends Component {
   constructor (props){
     super(props);
 
-    this.state = {};
+    this.state = {currentWorker: {}};
   }
 
   componentWillMount() {
+    var worker;
+    var t = this;
+    emp.getEmployee(emplAddress).then(function(data){
+      worker = data;
+      t.setState({
+        currentWorker: {name: data[0] + " " + data[1]}
+      });
+      console.log(data);
+    });
+    
     this.setState({
-      currentWorker: data.allworkers[0],
       work_places: [
         {
           company_name: 'Альтснаб',
@@ -81,7 +90,6 @@ class FirstPage extends Component {
                                           <div itemScope="" itemType="http://schema.org/Person">
                                               <h2 className="for_name"> <span itemProp="name">{this.state.currentWorker.name}</span></h2>
                                               <br/>
-                                              <p className="for_name"><span itemProp="affiliation">{this.state.currentWorker.company}</span></p>
                                           </div>
                                       </div>
                                   </div>
