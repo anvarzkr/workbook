@@ -59,26 +59,14 @@ class FirstPage extends Component {
       // root path /
     }
 
+    var workplaces = [];
+    emp.getEmployeeHistory(person_id).then(function(data){
+
+      console.log(data);
+    });
+
     this.setState({
       work_places: [
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        },
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        },
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        },
         {
           company_name: 'Альтснаб',
           date_from: 'June 10',

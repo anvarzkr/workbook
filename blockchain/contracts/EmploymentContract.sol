@@ -3,6 +3,13 @@ pragma solidity ^0.4.11;
 
 contract EmploymentContract {
     
+    uint32 employeesCounter = 0;
+    uint32 employmentsCounter = 0;
+    mapping (address => Employee) public employeeList;
+    Employment[] public employmentList;
+    mapping (address => Employee) public freeEmployees;// свободные агенты))
+    mapping (address => Company) public companyList; // мапа из всех компаний
+    
     address public creator;
     
     function EmploymentContract(){
@@ -28,8 +35,8 @@ contract EmploymentContract {
         string lastName; //фамилия работника
         string passport; //паспорт работника
         uint jobCounter; //количество работ работника
-        mapping (address => Company) jobProposals;
-        Employment[] history; //история работы работника - суть трудовой
+        address[] jobProposals;
+        uint32[] history; //история работы работника - суть трудовой
     }
 
     //Компания
@@ -38,22 +45,48 @@ contract EmploymentContract {
         string name; // название
         string regNumber; // регистрационный номер
         uint empCounter; // количество работников в компании в текущий момент
-        Employment[] employees; // список работиков
+        uint32[] employees; // список работиков
     }
     
+    
+    
+    
+    
     address[] public employees;
+    
+    
+    function getEmployeeHistory(address empAddress) constant returns(uint32[]){
+        Employee e = employeeList[empAddress];
+        return e.history;
+    }
+    function getCompanyEmployees(address compAddress) constant returns(uint32[]){
+        Company c = companyList[compAddress];
+        return c.employees;
+    }
+    
+    
+    function getEmployment(uint index) constant returns(string, string, string, string, string, string) {
+        Employment e = employmentList[index];
+        
+        return(
+                e.empFirstName,
+                e.empLastName,
+                e.compName,
+                e.startDate,
+                e.endDate,
+                e.feedback
+            );
+        
+    }
     
     function getAllEmployees() constant returns(address[]){
         return employees;
     }
-    uint32 employeesCounter = 0;
-    mapping (address => Employee) public employeeList;
-    mapping (address => Employee) public freeEmployees;// свободные агенты))
-    mapping (address => Company) public companyList; // мапа из всех компаний
+    
 
     // нанять нового работника с адресом employeeAddr
     function hire(address employeeAddr){
-        employeeList[employeeAddr].jobProposals[msg.sender] = companyList[msg.sender];
+        employeeList[employeeAddr].jobProposals.push(msg.sender);
     }
     
     function hireAccept(address companyAddr) public{
@@ -67,10 +100,18 @@ contract EmploymentContract {
             "0",
             ""
         );
+        
             //0 - feedback. Создаем новую работу. работник, компания, с текущего момента начало работы, конца ещще нет, фидбека тоже нет
-        companyList[companyAddr].employees.push(emp); // добавляем эту работу в список из работ работников компании
-        employeeList[msg.sender].history.push(emp); // добавляем эту работу в историю работ этого работника
+        employmentList.push(emp); // добавляем эту работу в список из работ работников компании
+        employeeList[msg.sender].history.push(employmentsCounter); // добавляем эту работу в историю работ этого работника
+        companyList[companyAddr].employees.push(employmentsCounter);
         companyList[companyAddr].empCounter++;
+        for (uint i = 0; i < employeeList[msg.sender].jobProposals.length;i++){
+            if(employeeList[msg.sender].jobProposals[i] == companyAddr){
+               employeeList[msg.sender].jobProposals[i] = 0;
+            }
+        }
+        employmentsCounter = employmentsCounter + 1;
         
     }
 
@@ -101,11 +142,11 @@ contract EmploymentContract {
         Employee storage employee = employeeList[employeeAddr]; // работник, которого хотим уволить
         Company storage company = companyList[msg.sender]; // компания наниматель
         if (company.employees.length > 0) {
-        address t = company.employees[0].employee;
+        address t = employmentList[company.employees[0]].employee;
         
         uint j = 0;
         while (t != employeeAddr && company.empCounter != j) {
-            t = company.employees[j++].employee; // тут короче нашли сотрудника, которого расстреливаем
+            t = employmentList[company.employees[j++]].employee; // тут короче нашли сотрудника, которого расстреливаем
         }
 
         //removing
@@ -114,7 +155,7 @@ contract EmploymentContract {
         }
         delete company.employees[company.empCounter-1];//end removing
 
-        Employment storage emp = employee.history[employee.jobCounter]; // находим работу работника
+        Employment storage emp = employmentList[employee.history[employee.jobCounter]]; // находим работу работника
         emp.endDate = "";
         emp.feedback = feedback; // приписываем отзыв о работе работника к работе
         company.empCounter--;
@@ -124,16 +165,7 @@ contract EmploymentContract {
     }
    
     
-    function getEmployeeHistory(address empAddress) constant returns(Employment[]){
-        Employee e = employeeList[empAddress];
-        return e.history;
-    }
     
-    function getCompanyEmployees() constant returns(Employment[]){
-        Company c = companyList[msg.sender];
-        return c.employees;
-    }
-
     function getEmployee(address employee) constant returns(string, string, string, uint) {
         Employee e = employeeList[employee];
         return (
@@ -144,16 +176,7 @@ contract EmploymentContract {
         );
     }
 
-    function getEmployment(address employee, uint index) constant returns(string, string, string, string) {
-        Employment e = employeeList[employee].history[index];
-        Company c = companyList[e.employer];
-        return (
-            c.name,
-            c.regNumber,
-            e.startDate,
-            e.endDate
-        );
-    }
+    
 
 
 }
