@@ -5,8 +5,10 @@ export default class Offers extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {};
+    
+    this.state = {
+      offers: []
+    };
   }
 
   addOffer() {
@@ -17,14 +19,24 @@ export default class Offers extends React.Component {
 
   }
 
-  componentWillMount() {
-    this.setState({
-      offers: [
-        {company_name: 'Альтснаб'},
-        {company_name: 'Альтснаб'},
-        {company_name: 'Альтснаб'},
-        {company_name: 'Альтснаб'},
-      ]
+  componentDidMount() {
+    fetchData(this.callback.bind(this));
+    
+  }
+  callback() {
+    let person_id = currentUser.address;
+    if (!authorized) {
+      this.props.history.push('/sign_up');
+      return;
+    }
+    var t = this;
+    console.log(person_id);
+    emp.getEmployeeProposals(person_id).then(function(data){      
+      this.setState({
+        offers: [
+          {company_name: 'Альтснаб'}        
+        ]
+      });
     });
   }
 

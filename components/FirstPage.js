@@ -51,6 +51,10 @@ class FirstPage extends Component {
 
         console.log(data);
       });
+      emp.getEmployeeHistory(person_id).then(function(data){
+        console.log("history: ");
+        console.log(data);
+      });
     } else {
       person_id = currentUser.address;
       console.log("Person ID: ", person_id);

@@ -49,7 +49,9 @@ contract EmploymentContract {
     }
     
     
-    
+    function getEmployeeProposals(address emplAddress) constant returns(address[]){
+        return employeeList[emplAddress].jobProposals;
+    }
     
     
     address[] public employees;
