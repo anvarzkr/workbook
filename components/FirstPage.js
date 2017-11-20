@@ -76,35 +76,18 @@ class FirstPage extends Component {
       // root path /
     }
 
-    this.setState({
-      work_places: [
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        },
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        },
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        },
-        {
-          company_name: 'Альтснаб',
-          date_from: 'June 10',
-          date_to: 'June 13',
-          feedback: 'feedback'
-        }
-      ]
+    var workplaces = [];
+    emp.getEmployeeHistory(person_id).then(function(data){
+      $.each(data, function(index, item){
+        emp.getEmployment(item).then(function(data){
+          workplaces.push({date_from: data[3], date_to: data[4], company_name: data[2], feedback: data[5]});
+          t.setState({
+            work_places: workplaces
+          });
+          console.log(workplaces)
+        });
+      });
     });
-
     scroll_event_initializer();
   }
 

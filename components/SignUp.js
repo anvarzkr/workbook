@@ -33,20 +33,22 @@ export default class SignUp extends React.Component {
   inputOnChange(e) {
     this.setState({
       [e.target.name]: e.target.value
+    }, function(){
+      console.log(this.state.user_type);
     });
   }
 
   signUp() {
     console.log("on click")
-    if (this.state.user_type == '0') {
+    if (this.state.user_type == '0' || this.state.user_type == 0) {
       emp.addEmployee(window.web3.eth.accounts[0], this.state.first_name, this.state.last_name, this.state.passport, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data) {
 
-      console.log('Add client, tx address: ' + data);
+      console.log('Add employee, tx address: ' + data);
       });
     } else {
       emp.addCompany(window.web3.eth.accounts[0], this.state.company_name, this.state.reg_number, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data) {
 
-      console.log('Add client, tx address: ' + data);
+      console.log('Add company, tx address: ' + data);
       });
     }
   }

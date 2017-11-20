@@ -11,14 +11,17 @@ export default class Offers extends React.Component {
     };
   }
 
-  addOffer() {
+  acceptOffer(e) {
+    let person_id = currentUser.address;   
+    var t = this;
+    var address = $(e.target).data("address");
+    console.log(address);
+    emp.hireAccept(address,{from: web3.eth.accounts[0], gas: 1400000}).then(function(data){
 
+    }); 
   }
 
-  removeOffer() {
-
-  }
-
+  
   componentDidMount() {
     fetchData(this.callback.bind(this));
     
@@ -31,12 +34,17 @@ export default class Offers extends React.Component {
     }
     var t = this;
     console.log(person_id);
-    emp.getEmployeeProposals(person_id).then(function(data){      
-      this.setState({
-        offers: [
-          {company_name: 'Альтснаб'}        
-        ]
-      });
+    var off = []
+    emp.getEmployeeProposals(person_id).then(function(data){ 
+      $.each(data, function(index, item){
+        emp.companyList(item).then(function(data){
+          off.push({name: data[1],address: data[0]});
+          t.setState({
+            offers: off
+          });
+          console.log(off)
+        });        
+      }); 
     });
   }
 
@@ -44,14 +52,11 @@ export default class Offers extends React.Component {
     const offers = this.state.offers.map((offer, index) => {
       return (
         <a className="list-group-item clearfix" key={index}>
-          {offer.company_name}
+          {offer.name}
           <span className="pull-right">
-              <span className="btn btn-success btn-circle" onClick={this.addOffer.bind(this)}>
+              <span className="btn btn-success btn-circle" data-address={offer.address} onClick={this.acceptOffer.bind(this)}>
                   <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              </span>
-              <span className="btn btn-danger btn-circle" onClick={this.removeOffer.bind(this)}>
-                  <span className="glyphicon glyphicon-minus" aria-hidden="true"></span>
-              </span>
+              </span>              
           </span>
         </a>
       );
