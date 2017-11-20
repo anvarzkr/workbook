@@ -25,7 +25,12 @@ class FirstPage extends Component {
     let person_id = this.props.params.person_id;
 
     if (!authorized) {
-      this.props.history.push('/sign_up');
+      this.props.history.push('/');
+      return;
+    }
+
+    if (person_id == undefined && authorized && currentUser.user_type == 1) {
+      this.props.history.push('/company');
       return;
     }
 
@@ -38,6 +43,10 @@ class FirstPage extends Component {
       // /person/:person_id
       emp.getEmployee(person_id).then(function(data){
         worker = data;
+        if (data[0] == '' && data[1] == '' && data[2] == '') {
+          t.props.history.push('/');
+          return;
+        }
         t.setState({
           currentUser: {
 						address: person_id,
@@ -63,14 +72,26 @@ class FirstPage extends Component {
       // root path /
     }
 
-    var workplaces = [];
-    emp.getEmployeeHistory(person_id).then(function(data){
-
-      console.log(data);
-    });
-
     this.setState({
       work_places: [
+        {
+          company_name: 'Альтснаб',
+          date_from: 'June 10',
+          date_to: 'June 13',
+          feedback: 'feedback'
+        },
+        {
+          company_name: 'Альтснаб',
+          date_from: 'June 10',
+          date_to: 'June 13',
+          feedback: 'feedback'
+        },
+        {
+          company_name: 'Альтснаб',
+          date_from: 'June 10',
+          date_to: 'June 13',
+          feedback: 'feedback'
+        },
         {
           company_name: 'Альтснаб',
           date_from: 'June 10',

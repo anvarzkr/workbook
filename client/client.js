@@ -31,6 +31,7 @@ window.fetchData = function(callback) {
 		  	window.emp.companyList(window.web3.eth.accounts[0]).then(function(data){
 		  		if (data[1] == ""){
 		  			window.authorized = false;
+						callback();
 		  		}
 		  		else{
 		  			window.currentUser = {
@@ -59,9 +60,9 @@ window.fetchData = function(callback) {
 		  	// window.user_type = 0;
 		  	window.authorized = true;
 		  	console.log(window.currentUser);
-		  }
 
-			callback();
+				callback();
+		  }
 	  });
 	}, 300);
 }

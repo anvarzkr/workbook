@@ -25,7 +25,7 @@ export default class SignUp extends React.Component {
 
   callback() {
     if (authorized) {
-      this.props.history.push('/');
+      this.props.history.push('/' + (currentUser.user_type == 1 ? 'company' : 'person'));
       return;
     }
   }

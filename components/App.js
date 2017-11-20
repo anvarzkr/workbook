@@ -11,11 +11,11 @@ class App extends Component{
   render(){
     return (
       <Router history={browserHistory}>
-        <Route path='/' component={FirstPage} />
+        <Route path='/' component={SignUp} />
         <Route path='/offers' component={Offers} />
         <Route path='/company' component={SecondPage} />
+        <Route path='/person' component={FirstPage} />
         <Route path='/person/:person_id' component={FirstPage} />
-        <Route path='/sign_up' component={SignUp} />
       </Router>
     );
   }

@@ -5,7 +5,11 @@ class SecondPage extends Component{
 
   constructor(props) {
     super(props);
-    this.state = state;
+    this.state = {
+        currentUser: {},
+        candidats: [],
+        workers: []
+    };
     this.showWorkers = this.showWorkers.bind(this);
     this.showCandidate = this.showCandidate.bind(this);
     this.submit = this.submit.bind(this);
@@ -17,7 +21,19 @@ class SecondPage extends Component{
   }
 
   callback() {
+    if (!authorized) {
+      this.props.history.push('/');
+      return;
+    }
 
+    if (authorized && currentUser.user_type == 0) {
+      this.props.history.push('/person');
+      return;
+    }
+
+    this.setState({
+      currentUser: currentUser
+    })
   }
 
   handleChange(event) {
@@ -127,7 +143,7 @@ class SecondPage extends Component{
       <div>
         <header>
           <h1 className="second_page" >
-            Компания
+            Компания "{this.state.currentUser == undefined ? '' : this.state.currentUser.name}"
           </h1>
         </header>
         <div className="container second_page">
@@ -160,34 +176,35 @@ class SecondPage extends Component{
             </div>
           </div>
 
-          <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 className="modal-title" id="myModalLabel" style={{textAlign: "center"}}>Отзыв о работнике</h4>
-                </div>
-                <div className="modal-body">
-                  <label className="modal-label">Имя:<span className="modal-name">{this.state.data.name}</span></label>
-                  <label className="modal-label">Аддрес трудовой книжки:<span className="modal-name">{this.state.data.id}</span></label>
-                  <label className="modal-label">Компания:<span className="modal-name">{this.state.data.company}</span></label>
-                  <label className="modal-label">Дата начала работы:<span className="modal-name">{this.state.data.date_begin}</span></label>
-                  <label className="modal-label">Стаж работы:<span className="modal-name">{this.state.data.period}</span></label>
-                  <br/>
-                  <div className="form-group">
-                    <label className="modal-label" for="comment">Отзыв:</label>
-                    <textarea value={this.state.inputValue} onChange={this.handleChange} className="form-control modal-area" rows="5" id="comment"></textarea>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button id="modal_cancel" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                  <button id="modal_submit" type="button" onClick={this.submit} className="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
     );
   }
 }
 export default SecondPage
+
+// <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+//   <div className="modal-dialog" role="document">
+//     <div className="modal-content">
+//       <div className="modal-header">
+//         <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+//         <h4 className="modal-title" id="myModalLabel" style={{textAlign: "center"}}>Отзыв о работнике</h4>
+//       </div>
+//       <div className="modal-body">
+//         <label className="modal-label">Имя:<span className="modal-name">{this.state.data.name}</span></label>
+//         <label className="modal-label">Аддрес трудовой книжки:<span className="modal-name">{this.state.data.id}</span></label>
+//         <label className="modal-label">Компания:<span className="modal-name">{this.state.data.company}</span></label>
+//         <label className="modal-label">Дата начала работы:<span className="modal-name">{this.state.data.date_begin}</span></label>
+//         <label className="modal-label">Стаж работы:<span className="modal-name">{this.state.data.period}</span></label>
+//         <br/>
+//         <div className="form-group">
+//           <label className="modal-label" for="comment">Отзыв:</label>
+//           <textarea value={this.state.inputValue} onChange={this.handleChange} className="form-control modal-area" rows="5" id="comment"></textarea>
+//         </div>
+//       </div>
+//       <div className="modal-footer">
+//         <button id="modal_cancel" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+//         <button id="modal_submit" type="button" onClick={this.submit} className="btn btn-primary">Save changes</button>
+//       </div>
+//     </div>
+//   </div>
+// </div>
