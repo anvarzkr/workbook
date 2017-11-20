@@ -36,7 +36,7 @@ window.fetchData = function(callback) {
 		  			window.currentUser = {
 							address: data[0],
 							name: data[1],
-							passport: data[2],
+							reg_number: data[2],
 							user_type: 1
 						};
 		  			// window.compAddress = currentUser[0];
@@ -52,7 +52,7 @@ window.fetchData = function(callback) {
 		  	window.currentUser = {
 					address: data[0],
 					name: data[1] + ' ' + data[2],
-					reg_number: data[3],
+					passport: data[3],
 					user_type: 0
 				};
 		  	// window.emplAddress = currentUser[0];
