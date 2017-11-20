@@ -33,8 +33,6 @@ export default class SignUp extends React.Component {
   inputOnChange(e) {
     this.setState({
       [e.target.name]: e.target.value
-    }, function(){
-      console.log(this.state.user_type);
     });
   }
 

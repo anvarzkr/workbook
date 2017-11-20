@@ -8,12 +8,17 @@ class SecondPage extends Component{
     this.state = {
         currentUser: {},
         candidats: [],
-        workers: []
+        workers: [],
+        new_worker_address: ''
     };
     this.showWorkers = this.showWorkers.bind(this);
     this.showCandidate = this.showCandidate.bind(this);
     this.submit = this.submit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  addWorker() {
+    console.log('New worker address', this.state.new_worker_address);
   }
 
   componentDidMount() {
@@ -38,6 +43,12 @@ class SecondPage extends Component{
 
   handleChange(event) {
     this.setState({inputValue: event.target.value});
+  }
+
+  inputOnChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   showWorkers() {
@@ -166,9 +177,10 @@ class SecondPage extends Component{
                 </div>
                 <div id="add_users_collapse" ref="add_users_collapse" className="collapse">
                   <div className="col-md-8 col-md-offset-2">
-                    <h3 className="second_page" >Кандидаты</h3>
-                    <div className="list-group">
-                      {candidats}
+                    <h3 className="second_page" >Пригласить работника</h3>
+                    <div>
+                      <input type="text" onChange={this.inputOnChange.bind(this)} value={this.state.new_worker_address} name="new_worker_address" placeholder="Адрес работника"/>
+                      <button onClick={this.addWorker.bind(this)}>Регистрация</button>
                     </div>
                   </div>
                 </div>
