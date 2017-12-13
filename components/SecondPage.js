@@ -9,7 +9,9 @@ class SecondPage extends Component{
         currentUser: {},
         candidats: [],
         workers: [],
-        new_worker_address: ''
+        review: '',
+        new_worker_address: '',
+        selected_worker: undefined
     };
     this.showWorkers = this.showWorkers.bind(this);
     this.showCandidate = this.showCandidate.bind(this);
@@ -18,6 +20,9 @@ class SecondPage extends Component{
   }
 
   addWorker() {
+    emp.hire(this.state.new_worker_address,{from: web3.eth.accounts[0], gas: 1400000}).then(function(data){
+
+    }); 
     console.log('New worker address', this.state.new_worker_address);
   }
 
@@ -26,6 +31,7 @@ class SecondPage extends Component{
   }
 
   callback() {
+    let t = this;
     if (!authorized) {
       this.props.history.push('/');
       return;
@@ -35,6 +41,19 @@ class SecondPage extends Component{
       this.props.history.push('/person');
       return;
     }
+    var workers = []
+    emp.getCompanyEmployees(currentUser.address).then(function(data){
+      console.log(currentUser.address)
+      $.each(data, function(index, item){
+        emp.employmentList(item).then(function(data){
+          workers.push({address: data[3], first_name: data[0], last_name: data[1], date_from: data[3], date_to: data[4]});
+          t.setState({
+            workers: workers
+          });
+          console.log(workers)
+        });
+      });
+    });
 
     this.setState({
       currentUser: currentUser
@@ -62,8 +81,14 @@ class SecondPage extends Component{
   }
 
   removeWorker(data, e) {
+    this.setState(
+        {
+          selected_worker: data
+        }
+      )
+    console.log(data);
     var context = this;
-    var parts = data.date_begin.match(/(\d+)/g);
+    var parts = data.date_from.match(/(\d+)/g);
     // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
     var date = new Date(parts[2], parts[1]-1, parts[0]);
     var period = (new Date()).getTime() - date.getTime();
@@ -81,19 +106,7 @@ class SecondPage extends Component{
     $('#myModal').modal('show');
   }
 
-  deleteFromState(data) {
-    this.setState({candidats: this.state.candidats.concat([data])})
-
-    var array = this.state.workers;
-    var index = array.indexOf(data); // Let's say it's Bob.
-
-    array.splice(index, 1);
-
-    this.setState({
-      workers: array
-    })
-  }
-
+ 
   addCandidate(data, e) {
     this.setState({workers: this.state.workers.concat([data])})
     var array = this.state.candidats;
@@ -107,16 +120,11 @@ class SecondPage extends Component{
   }
 
   submit(e){
-    var review = this.state.inputValue;
-    this.deleteFromState(this.state.data);
-    $('#myModal').modal('hide');
-    data.lastWork = {
-      "worker": this.state.data,
-      "company": this.state.data.company,
-      "review": this.state.inputValue,
-      "date": "Aug 29",
-    }
-    data.workers = this.state.workers;
+    var review = this.state.review;    
+    $('#myModal').modal('hide');    
+      emp.fire(this.state.selected_worker.address, review, {from: web3.eth.accounts[0], gas: 1400000}).then(function(data){
+
+    });
   }
 
   render () {
@@ -139,7 +147,7 @@ class SecondPage extends Component{
 
       return (
         <a className="list-group-item clearfix" key={index}>
-          {person.name}
+          {person.first_name} {person.last_name}
           <span className="pull-right">
             <span className="btn btn-danger btn-circle" onClick={removePerson}>
               <span className="glyphicon glyphicon-minus" aria-hidden="true"></span>
@@ -188,35 +196,37 @@ class SecondPage extends Component{
             </div>
           </div>
 
+          {this.state.selected_worker != undefined && 
+            <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 className="modal-title" id="myModalLabel" style={{textAlign: "center"}}>Отзыв о работнике</h4>
+                  </div>
+                  <div className="modal-body">
+                    <label className="modal-label">Имя:<span className="modal-name">{this.state.selected_worker.first_name} {this.state.selected_worker.last_name}</span></label>
+                    <label className="modal-label">Компания:<span className="modal-name">{currentUser.name}</span></label>
+                    <label className="modal-label">Дата начала работы:<span className="modal-name">{this.state.selected_worker.date_from}</span></label>
+                    <br/>
+                    <div className="form-group">
+                      <label className="modal-label" htmlFor="comment">Отзыв:</label>
+                      <textarea value={this.state.review} name="review" onChange={this.inputOnChange.bind(this)} className="form-control modal-area" rows="5" id="comment"></textarea>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button id="modal_cancel" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="modal_submit" type="button" onClick={this.submit} className="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+
         </div>
     );
   }
 }
 export default SecondPage
 
-// <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-//   <div className="modal-dialog" role="document">
-//     <div className="modal-content">
-//       <div className="modal-header">
-//         <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-//         <h4 className="modal-title" id="myModalLabel" style={{textAlign: "center"}}>Отзыв о работнике</h4>
-//       </div>
-//       <div className="modal-body">
-//         <label className="modal-label">Имя:<span className="modal-name">{this.state.data.name}</span></label>
-//         <label className="modal-label">Аддрес трудовой книжки:<span className="modal-name">{this.state.data.id}</span></label>
-//         <label className="modal-label">Компания:<span className="modal-name">{this.state.data.company}</span></label>
-//         <label className="modal-label">Дата начала работы:<span className="modal-name">{this.state.data.date_begin}</span></label>
-//         <label className="modal-label">Стаж работы:<span className="modal-name">{this.state.data.period}</span></label>
-//         <br/>
-//         <div className="form-group">
-//           <label className="modal-label" for="comment">Отзыв:</label>
-//           <textarea value={this.state.inputValue} onChange={this.handleChange} className="form-control modal-area" rows="5" id="comment"></textarea>
-//         </div>
-//       </div>
-//       <div className="modal-footer">
-//         <button id="modal_cancel" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-//         <button id="modal_submit" type="button" onClick={this.submit} className="btn btn-primary">Save changes</button>
-//       </div>
-//     </div>
-//   </div>
-// </div>
